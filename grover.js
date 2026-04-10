@@ -1,27 +1,20 @@
-// ============================================================
-//  grover.js — Grover's Quantum Search Visualisation
-//  Simulates amplitude evolution across 4 algorithm steps
-// ============================================================
-
-const N_STATES = 8;    // 2^3 qubits = 8 states shown in bars
-const TARGET_IDX = 3;  // index of the "match" state
-
-// Amplitude data per step
+const N_STATES = 8;
+const TARGET_IDX = 3; 
 const AMPLITUDE_DATA = {
-  0: { // Equal superposition
+  0: { 
     heights: Array(N_STATES).fill(1 / Math.sqrt(N_STATES)),
     color: 'var(--green-light)',
     label: 'Equal superposition'
   },
-  1: { // Oracle: flip target
+  1: { 
     heights: Array(N_STATES).fill(1 / Math.sqrt(N_STATES)).map((v, i) => i === TARGET_IDX ? -v : v),
     color: 'var(--amber)',
     label: 'Oracle applied'
   },
-  2: { // After 1 diffusion iteration
+  2: { 
     heights: (() => {
       const base = 1 / Math.sqrt(N_STATES);
-      const mean = ((N_STATES - 1) * base - base) / N_STATES; // mean after oracle flip
+      const mean = ((N_STATES - 1) * base - base) / N_STATES; 
       return Array(N_STATES).fill(0).map((_, i) => {
         const a = i === TARGET_IDX ? -base : base;
         return 2 * mean - a;
@@ -30,7 +23,7 @@ const AMPLITUDE_DATA = {
     color: 'var(--green-mid)',
     label: 'Amplified after diffusion'
   },
-  3: { // After ~π√N/4 iterations — target near 1
+  3: { 
     heights: Array(N_STATES).fill(0).map((_, i) => i === TARGET_IDX ? 0.97 : 0.04),
     color: 'var(--green)',
     label: 'Ready for measurement'
@@ -43,7 +36,6 @@ function renderGroverBars(stepIdx) {
   const ids = ['amp-init', 'amp-oracle', 'amp-diffuse', 'amp-measure'];
   const data = AMPLITUDE_DATA[stepIdx];
 
-  // Render bars in the ACTIVE step card only
   ids.forEach((id, si) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -79,9 +71,6 @@ function groverPrev() {
   setGroverStep((groverStep + 3) % 4);
 }
 
-// =============================================
-//  Complexity Comparison Chart (canvas)
-// =============================================
 function drawSpeedupChart() {
   const canvas = document.getElementById('speedup-chart');
   if (!canvas) return;

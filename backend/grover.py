@@ -1,12 +1,3 @@
-# grover.py — Grover's Quantum Search Algorithm Simulation
-#
-# Simulates Grover's algorithm using numpy state vectors.
-# In real quantum computing: deploy on IBM Q / Qiskit / Cirq.
-#
-# Usage:
-#   from grover import grover_search
-#   result = grover_search(N=1024, target_idx=47)
-
 import numpy as np
 import math
 
@@ -36,28 +27,21 @@ def grover_search(N: int, target_idx: int, iterations: int = None) -> dict:
         raise ValueError(f"target_idx must be in [0, {N-1}]")
 
     if iterations is None:
-        # Optimal: π/4 * √N iterations
         iterations = max(1, round(math.pi / 4 * math.sqrt(N)))
 
-    # ── Step 1: Equal superposition (Hadamard on all qubits) ─────────────
     amplitudes = np.ones(N, dtype=float) / math.sqrt(N)
 
-    history = [np.abs(amplitudes) ** 2]  # probability at each step
+    history = [np.abs(amplitudes) ** 2]  
 
     for _ in range(iterations):
 
-        # ── Step 2: Oracle — phase-flip the target state ─────────────────
-        # Unitary: Uω|x⟩ = -|x⟩ if x==target, else |x⟩
         amplitudes[target_idx] *= -1
 
-        # ── Step 3: Diffusion operator — reflect about the mean ──────────
-        # D = 2|ψ⟩⟨ψ| − I
         mean = np.mean(amplitudes)
         amplitudes = 2 * mean - amplitudes
 
         history.append(np.abs(amplitudes) ** 2)
 
-    # ── Step 4: Measurement (take max-probability state) ─────────────────
     probs       = np.abs(amplitudes) ** 2
     measured    = int(np.argmax(probs))
     success_prob = float(probs[target_idx])
@@ -131,7 +115,6 @@ if __name__ == "__main__":
     print(f"Speedup factor: {result['speedup_factor']}×")
     print()
 
-    # Show final amplitude for target vs average
     amps = np.array(result['amplitudes'])
     avg_other = float(np.mean(np.abs(amps[np.arange(N) != target_idx])))
     print(f"Target amplitude:  {abs(amps[target_idx]):.4f}")

@@ -1,7 +1,3 @@
-// ============================================================
-//  simulator.js — 2MB+ Optimized Controller
-// ============================================================
-
 let currentMode = 'classical';
 
 function setMode(mode) {

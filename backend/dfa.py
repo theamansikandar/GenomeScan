@@ -1,11 +1,3 @@
-# dfa.py — Deterministic Finite Automaton Engine
-# DNA Pattern Matching via KMP-style transition table
-#
-# Usage:
-#   from dfa import run_dfa
-#   matches = run_dfa("ATGCATCGATCG", "ATCG")
-#   print(matches)  # [5, 9]
-
 DNA_ALPHABET = ['A', 'T', 'C', 'G']
 
 
@@ -28,8 +20,6 @@ def build_transition_table(pattern: str) -> list[dict]:
     for q in range(m + 1):
         row = {}
         for c in DNA_ALPHABET:
-            # Check decreasing suffix lengths to find the longest
-            # prefix of `pattern` that is a suffix of pattern[0:q]+c
             k = min(m, q + 1)
             while k > 0:
                 if (pattern[:q] + c)[-k:] == pattern[:k]:
@@ -60,14 +50,14 @@ def run_dfa(genome: str, pattern: str) -> list[int]:
     genome  = genome.upper()
     delta   = build_transition_table(pattern)
     m       = len(pattern)
-    q       = 0           # current DFA state
+    q       = 0           
     matches = []
 
     for i, c in enumerate(genome):
         if c not in DNA_ALPHABET:
             continue
         q = delta[q][c]
-        if q == m:        # accept state reached
+        if q == m:        
             matches.append(i - m + 1)
 
     return matches
@@ -99,7 +89,6 @@ if __name__ == "__main__":
     print(f"States  : q0 → q{len(pattern)} (accept)")
     print()
 
-    # Print transition table
     delta = build_transition_table(pattern)
     header = f"{'State':>8}" + "".join(f"{c:>6}" for c in DNA_ALPHABET)
     print(header)
