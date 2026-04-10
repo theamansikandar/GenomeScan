@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GenomeScan — Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg-cream: #f4efe6; --green-dark: #193f2c; --serif: 'DM Serif Display', serif; --sans: 'Syne', sans-serif; }
+    body { font-family: var(--sans); background: var(--bg-cream); margin: 0; }
+    
+    .nav { display: flex; justify-content: space-between; padding: 30px 60px; align-items: center; }
+    .logo { font-weight: 700; color: var(--green-dark); font-size: 1.2rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a { text-decoration: none; color: #1a202c; font-weight: 500; font-size: 0.9rem; }
+    .nav-links a.active { color: #10b981; }
+
+    .container { max-width: 1200px; margin: 80px auto; padding: 0 40px; }
+    .tag { color: #2d6a4f; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+    h1 { font-family: var(--serif); font-size: 4rem; margin-bottom: 20px; color: var(--green-dark); }
+    .desc { max-width: 600px; color: #4a5568; margin-bottom: 60px; line-height: 1.6; font-size: 1.1rem; }
+    
+    .pipeline { display: flex; gap: 15px; }
+    .step { flex: 1; background: white; border: 1px solid #e2e8f0; padding: 40px 20px; text-align: center; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .step-num { font-size: 1.5rem; font-weight: 700; color: #2d6a4f; margin-bottom: 15px; }
+    .step-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; color: #1a202c; }
+    .step-sub { font-size: 0.75rem; color: #718096; line-height: 1.4; }
+    
+    .step.highlight { border: 2px solid #f97316; background: #fffaf5; }
+    .step.highlight .step-num { color: #f97316; }
+    
+    .footer { background: var(--green-dark); color: #f4efe6; padding: 50px; margin-top: 100px; text-align: center; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="logo">GenomeScan</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="theory.html">Theory</a></li>
+      <li><a href="architecture.html" class="active">Architecture</a></li>
+      <li><a href="simulator.html">Simulator</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="tag">System Design</div>
+    <h1>System Pipeline</h1>
+    <p class="desc">The full end-to-end pipeline showing how raw genomic data flows from input through the DFA pre-processing stage and into the quantum search layer.</p>
+    
+    <div class="pipeline">
+      <div class="step"><div class="step-num">1</div><div class="step-title">Raw Genome Input</div><div class="step-sub">NCBI / local file</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-title">Preprocessing</div><div class="step-sub">Clean, chunk, index</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-title">DFA Construction</div><div class="step-sub">KMP failure fn + table</div></div>
+      <div class="step highlight"><div class="step-num">4</div><div class="step-title">Quantum Oracle</div><div class="step-sub">Encode DFA into qubits</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-title">Grover Search</div><div class="step-sub">Amplitude amplification</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-title">Match Positions</div><div class="step-sub">Report + visualise</div></div>
+    </div>
+  </div>
+  <footer class="footer">DNA Scan • DFA + Grover's Algorithm • Quantum Bioinformatics</footer>
+</body>
+</html>

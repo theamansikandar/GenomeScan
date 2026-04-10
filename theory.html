@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GenomeScan — Theory & Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { 
+      --bg-cream: #f4efe6; 
+      --green-dark: #193f2c; 
+      --green-bright: #10b981;
+      --serif: 'DM Serif Display', serif; 
+      --sans: 'Syne', sans-serif; 
+    }
+    body { font-family: var(--sans); background: var(--bg-cream); margin: 0; color: #1a202c; }
+    
+    .nav { display: flex; justify-content: space-between; padding: 30px 60px; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .logo { font-weight: 700; color: var(--green-dark); font-size: 1.2rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 40px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { text-decoration: none; color: #1a202c; font-weight: 500; font-size: 0.9rem; }
+    .nav-links a.active { color: var(--green-bright); font-weight: 700; }
+
+    .container { max-width: 1000px; margin: 60px auto; padding: 0 40px; }
+    h1 { font-family: var(--serif); font-size: 4rem; text-align: center; margin-bottom: 20px; color: var(--green-dark); }
+    .subtitle { text-align: center; color: #718096; margin-bottom: 60px; font-size: 1.1rem; }
+    
+    .card { background: white; padding: 50px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+    h2 { font-family: var(--serif); color: var(--green-dark); font-size: 2.2rem; margin-bottom: 20px; border-left: 4px solid var(--green-bright); padding-left: 20px; }
+    p { line-height: 1.8; color: #4a5568; font-size: 1.1rem; margin-bottom: 25px; }
+
+    .graph-container { margin-top: 40px; padding: 30px; background: #fafafa; border-radius: 8px; border: 1px dashed #cbd5e0; }
+    .graph-title { font-weight: 700; font-size: 0.85rem; color: #4a5568; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 30px; text-align: center; }
+    
+    .chart-row { display: flex; align-items: center; margin-bottom: 25px; }
+    .chart-label { width: 180px; font-size: 0.9rem; font-weight: 700; color: var(--green-dark); }
+    .chart-track { flex: 1; height: 24px; background: #edf2f7; border-radius: 12px; overflow: hidden; position: relative; }
+    .chart-bar { height: 100%; border-radius: 12px; transition: width 1.5s ease-out; }
+    .bar-classical { width: 100%; background: #2d3748; }
+    .bar-quantum { width: 2%; background: var(--green-bright); } /* Visualizing the massive difference */
+    .chart-value { width: 120px; margin-left: 20px; font-weight: 700; font-size: 0.95rem; color: #1a202c; }
+
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .comp-table th { text-align: left; padding: 15px; border-bottom: 2px solid var(--bg-cream); color: var(--green-dark); font-family: var(--serif); font-size: 1.2rem; }
+    .comp-table td { padding: 15px; border-bottom: 1px solid #f0f0f0; line-height: 1.5; }
+    .highlight { color: var(--green-bright); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="logo">GenomeScan</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="theory.html" class="active">Theory</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="simulator.html">Simulator</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Algorithm Analysis</h1>
+    <p class="subtitle">A comparative study of Classical DFA vs. Quantum Grover search.</p>
+
+    <div class="card">
+      <h2>Why it matters</h2>
+      <p>Traditional genomic search uses Deterministic Finite Automata (DFA) which processes data sequentially. For large datasets, a classical search takes **O(N)** time—meaning if you double the DNA data, you double the search time.</p>
+      
+      <p>GenomeScan utilizes **Grover's Algorithm**, which provides a quadratic speedup. By rotating state vectors in a quantum superposition, the complexity is reduced to approximately **Square Root of N**. This allows the system to find gene markers in a fraction of the time required by standard CPU clusters.</p>
+
+      <div class="graph-container">
+        <div class="graph-title">Computational Steps Comparison (N = 3,253,037)</div>
+        
+        <div class="chart-row">
+          <div class="chart-label">Classical DFA</div>
+          <div class="chart-track"><div class="chart-bar bar-classical"></div></div>
+          <div class="chart-value">7,555,343 steps</div>
+        </div>
+
+        <div class="chart-row">
+          <div class="chart-label">Quantum Grover</div>
+          <div class="chart-track"><div class="chart-bar bar-quantum"></div></div>
+          <div class="chart-value">1,416 steps</div>
+        </div>
+        <p style="text-align: center; font-size: 0.8rem; margin-top: 10px; color: #718096;">*Based on simulated amplitude amplification results.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Efficiency Breakdown</h2>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Standard DFA</th>
+            <th>GenomeScan (Hybrid)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Time Complexity</strong></td>
+            <td>Linear: O(N)</td>
+            <td class="highlight">Quadratic: O(sqrt(N))</td>
+          </tr>
+          <tr>
+            <td><strong>Memory Usage</strong></td>
+            <td>Scales with pattern size</td>
+            <td class="highlight">Efficient Qubit Encoding</td>
+          </tr>
+          <tr>
+            <td><strong>Search Style</strong></td>
+            <td>Serial (one by one)</td>
+            <td class="highlight">Parallel (Superposition)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

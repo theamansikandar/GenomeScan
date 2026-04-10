@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture - GROVER SEARCH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="logo">
+        <span class="logo-helix"></span>
+        <span class="logo-text">GROVER SEARCH</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="pipeline.html" class="active">Architecture</a></li>
+        <li><a href="simulator.html" class="nav-cta">Launch Simulator</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section" id="pipeline" style="padding-top: 120px; min-height: 80vh;">
+    <div class="container">
+      <div class="section-label">System Design</div>
+      <h2>System Pipeline</h2>
+      <p class="section-desc">The full end to end pipeline showing how raw genomic data flows from input through the DFA pre processing stage and into the quantum search layer.</p>
+      <div class="pipeline-flow" id="pipeline-flow">
+        <div class="pipe-step">
+          <div class="pipe-icon">1</div>
+          <div class="pipe-label">Raw Genome Input</div>
+          <div class="pipe-sub">NCBI / local file</div>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-icon">2</div>
+          <div class="pipe-label">Preprocessing</div>
+          <div class="pipe-sub">Clean, chunk, index</div>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-icon">3</div>
+          <div class="pipe-label">DFA Construction</div>
+          <div class="pipe-sub">KMP failure fn + table</div>
+        </div>
+        <div class="pipe-step active">
+          <div class="pipe-icon">4</div>
+          <div class="pipe-label">Quantum Oracle</div>
+          <div class="pipe-sub">Encode DFA into qubits</div>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-icon">5</div>
+          <div class="pipe-label">Grover Search</div>
+          <div class="pipe-sub">Amplitude amplification</div>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-icon">6</div>
+          <div class="pipe-label">Match Positions</div>
+          <div class="pipe-sub">Report + visualise</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>DNA Scan &nbsp;·&nbsp; DFA + Grover's Algorithm &nbsp;·&nbsp; Quantum Bioinformatics</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

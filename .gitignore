@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# System
+.DS_Store
+Thumbs.db
+
+# Large Data (Optional - if you have huge DNA files)
+*.fasta
+*.fastq
